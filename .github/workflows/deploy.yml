@@ -22,17 +22,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm run test --if-present
+      - run: npm i
+      - run: npm run build
+      - run: npm i -g pm2
+      - run: pm2 start build/index.js
 
       - uses: a7ul/tar-action@v1.1.0
         with:
           command: c
           cwd: "./"
           files: |
-            ./.svelte-kit/output/server/
-            ./.svelte-kit/output/client/
             captain-definition
           outPath: deploy.tar
   
