@@ -31,8 +31,8 @@ jobs:
           command: c
           cwd: "./"
           files: |
-            server/
-            client/
+            ./svelte-kit/server/
+            ./svelete-kit/client/
             captain-definition
           outPath: deploy.tar
   
