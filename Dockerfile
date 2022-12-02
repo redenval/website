@@ -2,13 +2,14 @@ FROM node:16.14-alpine AS build
 
 WORKDIR /app
 COPY . .
-RUN npm add -g vite
-RUN npm install
-RUN npm run build
+RUN yarn
+RUN yarn build
 
-FROM nginx:1.18-alpine AS deploy-static
+FROM node:18-alpine AS deploy-node
 
-WORKDIR /usr/share/nginx/html
+WORKDIR /app
 RUN rm -rf ./*
-COPY --from=build /app/.svelte-kit/output/server .
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+COPY --from=build /app/package.json .
+COPY --from=build /app/build-node .
+RUN yarn --prod
+CMD ["node", "index.js"]
