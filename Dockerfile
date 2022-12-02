@@ -10,5 +10,5 @@ FROM nginx:1.18-alpine AS deploy-static
 
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
-COPY --from=build /app/build/ .
+COPY --from=build /app/.svelte-kit/output/server .
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
