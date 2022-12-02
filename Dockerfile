@@ -2,8 +2,8 @@ FROM node:16.14-alpine AS build
 
 WORKDIR /app
 COPY . .
-RUN npm
-RUN npm build
+RUN yarn
+RUN yarn build
 
 FROM nginx:1.18-alpine AS deploy-static
 
