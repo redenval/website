@@ -1,15 +1,12 @@
-FROM node:16.14-alpine AS build
+FROM node:16.14-alpine
 
 WORKDIR /app
-COPY . .
-RUN yarn
-RUN yarn build
 
-FROM node:18-alpine AS deploy-node
+# copy files and install dependencies
+COPY . ./
+RUN npm install
+RUN npm run build
 
-WORKDIR /app
-RUN rm -rf ./*
-COPY --from=build /app/package.json .
-COPY --from=build /app/build-node .
-RUN yarn --prod
-CMD ["node", "index.js"]
+EXPOSE 5000
+
+CMD ["npm", "start"]
