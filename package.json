@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "node build/index.js",
+		"start": "npm i && npm run build && npm i -g pm2 && pm2 start build/index.jss",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
